@@ -1,0 +1,29 @@
+group 'java.microservice'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+mainClassName = 'App'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.inject:guice:4.0'
+    compile 'net.jmob:guice.conf:1.2.0'
+
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'ch.qos.logback:logback-core:1.1.7'
+    compile 'ch.qos.logback:logback-classic:1.1.7'
+
+    compile 'com.sparkjava:spark-core:2.5'
+
+    compile 'org.projectlombok:lombok:1.16.8'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.guava:guava:19.0'
+
+    testCompile 'junit:junit:4.11'
+}

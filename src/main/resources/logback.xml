@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="PATTERN_FORMAT" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-16thread] %-5level %logger{40} - %msg%n"/>
+    <property name="MAX_HISTORY" value="60"/>
+    <property name="ROLLOVER_DATE_PATTERN" value="%d{yyyy-MM-dd}"/>
+    <property name="LOG_FILE_NAME" value="app"/>
+    <property name="LOG_FILE_EXT" value="log"/>
+    <property name="LOG_BASE_DIR" value="logs"/>
+    <property name="LOG_ROLLOVER_DIR" value="logs.backup"/>
+
+    <!-- Appenders -->
+    <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>
+            ${LOG_BASE_DIR}/${LOG_FILE_NAME}.${LOG_FILE_EXT}
+        </file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${LOG_ROLLOVER_DIR}/${LOG_FILE_NAME}.${ROLLOVER_DATE_PATTERN}.${LOG_FILE_EXT}
+            </fileNamePattern>
+            <maxHistory>
+                ${MAX_HISTORY}
+            </maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>
+                ${PATTERN_FORMAT}
+            </Pattern>
+        </encoder>
+    </appender>
+
+    <!-- Components -->
+    <logger name="service" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="File"/>
+    </logger>
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="File"/>
+    </root>
+
+</configuration>
