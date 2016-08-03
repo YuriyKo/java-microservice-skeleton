@@ -25,5 +25,10 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.google.guava:guava:19.0'
 
+    compile 'io.swagger:swagger-core:1.5.8'
+    compile 'io.swagger:swagger-jaxrs:1.5.8'
+    compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
+    compile 'org.reflections:reflections:0.9.10'
+
     testCompile 'junit:junit:4.11'
 }

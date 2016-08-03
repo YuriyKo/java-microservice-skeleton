@@ -1,4 +1,10 @@
+import io.swagger.annotations.Contact;
+import io.swagger.annotations.Info;
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.annotations.Tag;
 import service.config.ConfigModule;
+import service.db.DatastoreModule;
+import service.json.GsonModule;
 import service.server.ServerModule;
 import service.process.ProcessModule;
 import service.process.ProcessService;
@@ -22,6 +28,8 @@ public class App {
         Injector injector = Guice.createInjector(
                 new ConfigModule(),
                 new ServerModule(),
+                new GsonModule(),
+                new DatastoreModule(),
                 new ProcessModule()
         );
 
