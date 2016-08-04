@@ -26,25 +26,27 @@ public class GetHello implements Route {
     @GET
     @ApiOperation(value = "Get hello message", nickname = "GetHello")
     @ApiImplicitParams({
-            @ApiImplicitParam(required = true, dataType = "string", name = "auth", paramType = "header")
+        @ApiImplicitParam(required = true, dataType = "string", name = "auth", paramType = "header")
     })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = service.process.hello.Hello.class),
-            @ApiResponse(code = 401, message = "Unauthorized", response = ApiResult.class),
-            @ApiResponse(code = 404, message = "Not Found", response = ApiResult.class)
+        @ApiResponse(code = 200, message = "OK", response = service.process.hello.Hello.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = ApiResult.class),
+        @ApiResponse(code = 404, message = "Not Found", response = ApiResult.class)
     })
     @Override
     public Object handle(@ApiParam(hidden = true) Request request,
-                        @ApiParam(hidden = true) Response response)
-            throws Exception
+                         @ApiParam(hidden = true) Response response)
+        throws Exception
     {
         Object o = datastore.r();
 
         if (o == null) {
-            halt(404, gson.toJson(ApiResult.of(404, "Message not found")));
+            response.status(404);
+            return ApiResult.of(404, "Message not found");
+        } else {
+            response.status(200);
+            return o;
         }
-
-        return (Hello) o;
     }
 
 }

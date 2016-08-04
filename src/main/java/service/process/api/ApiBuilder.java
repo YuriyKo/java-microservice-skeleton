@@ -31,38 +31,54 @@ public class ApiBuilder {
         Set<Class<?>> apiRoutes = reflections.getTypesAnnotatedWith(Api.class);
 
         for (Class<?> clazz : apiRoutes) {
-            //Route sparkRoute = (Route) clazz.newInstance();
             Route sparkRoute = (Route) injector.getInstance(clazz);
             Path path = clazz.getAnnotation(Path.class);
             Method[] methods = clazz.getMethods();
             for (Method method : methods) {
                 String friendlyRoute = path.value().replaceAll("\\{(.*?)\\}", ":$1");
 
+                boolean transform = method.getAnnotation(NoTransform.class) == null ? Boolean.TRUE : Boolean.FALSE;
+
                 POST post = method.getAnnotation(POST.class);
                 if (post != null) {
-                    s.post(friendlyRoute, sparkRoute, transformer);
+                    if (transform) {
+                        s.post(friendlyRoute, sparkRoute, transformer);
+                    } else {
+                        s.post(friendlyRoute, sparkRoute);
+                    }
                     break;
                 }
 
                 GET get = method.getAnnotation(GET.class);
                 if (get != null) {
-                    s.get(friendlyRoute, sparkRoute, transformer);
+                    if (transform) {
+                        s.get(friendlyRoute, sparkRoute, transformer);
+                    } else {
+                        s.get(friendlyRoute, sparkRoute);
+                    }
                     break;
                 }
 
                 DELETE delete = method.getAnnotation(DELETE.class);
                 if (delete != null) {
-                    s.delete(friendlyRoute, sparkRoute, transformer);
+                    if (transform) {
+                        s.delete(friendlyRoute, sparkRoute, transformer);
+                    } else {
+                        s.delete(friendlyRoute, sparkRoute);
+                    }
                     break;
                 }
 
                 PUT put = method.getAnnotation(PUT.class);
                 if (put != null) {
-                    s.put(friendlyRoute, sparkRoute, transformer);
+                    if (transform) {
+                        s.put(friendlyRoute, sparkRoute, transformer);
+                    } else {
+                        s.put(friendlyRoute, sparkRoute);
+                    }
                     break;
                 }
             }
-
         }
     }
 

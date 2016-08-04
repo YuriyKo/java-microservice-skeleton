@@ -1,6 +1,7 @@
 package service.process;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.name.Names;
 import service.process.api.ApiBuilder;
 import service.process.filters.After;
 import service.process.filters.AfterImpl;
@@ -13,6 +14,8 @@ import spark.ResponseTransformer;
 public class ProcessModule extends AbstractModule {
 
     protected void configure() {
+        bindConstant().annotatedWith(Names.named("api_package")).to("service.process");
+
         bind(ProcessService.class).to(ProcessServiceImpl.class).asEagerSingleton();
         // depends on GsonModule
         bind(ResponseTransformer.class).to(JsonTransformer.class).asEagerSingleton();
@@ -20,7 +23,7 @@ public class ProcessModule extends AbstractModule {
         bind(Before.class).to(BeforeImpl.class).asEagerSingleton();
         bind(After.class).to(AfterImpl.class).asEagerSingleton();
 
-        bind(IndexRoute.class).asEagerSingleton();
+        //bind(IndexRoute.class).asEagerSingleton();
         bind(ApiBuilder.class).asEagerSingleton();
     }
 

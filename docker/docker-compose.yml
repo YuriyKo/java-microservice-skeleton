@@ -1,0 +1,31 @@
+version: "2"
+ 
+services:
+    nginx:
+      container_name: jms-nginx
+      image: jms/nginx
+      build: 
+        context: ../
+        dockerfile: ./docker/nginx.dockerfile
+      ports:
+        - "80:80"
+        - "443:443"
+      networks:
+        - jms-network
+        
+    sample:
+      container_name: jms-sample
+      image: jms/sample
+      build: 
+        context: ../
+        dockerfile: ./docker/sample.dockerfile
+      ports:
+        - "9876:9876"
+        - "5005:5005"
+      working_dir: /opt/sample
+      networks:
+        - jms-network
+      
+networks:
+    jms-network:
+      driver: bridge

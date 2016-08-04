@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class App {
 
     public static void main(String ... args) {
-        log.info("Start App");
+        log.info("Start");
 
         App app = new App();
         app.start();

@@ -9,8 +9,8 @@ public class GsonProvider implements Provider<Gson> {
     public Gson get() {
         // if you need a customized Gson object - do it here
         Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .create();
+            .setPrettyPrinting()
+            .create();
 
         return gson;
     }

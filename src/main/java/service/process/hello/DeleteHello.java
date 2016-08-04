@@ -28,16 +28,16 @@ public class DeleteHello implements Route {
     @DELETE
     @ApiOperation(value = "Delete hello message", nickname = "DeleteHello")
     @ApiImplicitParams({
-            @ApiImplicitParam(required = true, dataType = "string", name = "auth", paramType = "header")
+        @ApiImplicitParam(required = true, dataType = "string", name = "auth", paramType = "header")
     })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = ApiResult.class),
-            @ApiResponse(code = 401, message = "Unauthorized", response = ApiResult.class)
+        @ApiResponse(code = 200, message = "OK", response = ApiResult.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = ApiResult.class)
     })
     @Override
     public Object handle(@ApiParam(hidden = true) Request request,
                          @ApiParam(hidden = true) Response response)
-            throws Exception
+        throws Exception
     {
         datastore.d();
 

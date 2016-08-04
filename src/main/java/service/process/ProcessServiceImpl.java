@@ -6,7 +6,6 @@ import io.swagger.annotations.SwaggerDefinition;
 import io.swagger.annotations.Tag;
 import lombok.extern.slf4j.Slf4j;
 import service.process.api.ApiBuilder;
-import service.process.api.SwaggerParser;
 import service.process.filters.After;
 import service.process.filters.Before;
 import service.process.index.IndexRoute;
@@ -14,32 +13,39 @@ import service.server.ServerProvider;
 import spark.Service;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 @SwaggerDefinition(
-        host = "localhost:9876",
-        info = @Info(
-                description = "Java Microservice Skeleton v.3.0",
-                version = "V3.0",
-                title = "Microservice API",
-                contact = @Contact(
-                        name = "Yuriy Kozhynov",
-                        url = "https://github.com/ipkeys/eiss")
-        ),
-        schemes = {
-                SwaggerDefinition.Scheme.HTTP,
-                SwaggerDefinition.Scheme.HTTPS
-        },
-        consumes = {
-                "application/json"
-        },
-        produces = {
-                "application/json"
-        },
-        tags = {
-                @Tag(name = "swagger")
-        }
-)
+    host = "localhost:9876",
+    basePath = "/",
+    info = @Info(
+        description = "Java Microservice Skeleton project. Design to be run in Docker.",
+        version = "0.1",
 
+        title = "Microservice API",
+        contact = @Contact(
+            name = "Yuriy Kozhynov",
+            url = "https://github.com/YuriyKo/java-microservice-skeleton")
+    ),
+    schemes = {
+        SwaggerDefinition.Scheme.HTTP,
+        SwaggerDefinition.Scheme.HTTPS
+    },
+    consumes = {
+        "application/json"
+    },
+    produces = {
+        "application/json"
+    },
+    tags = {
+        @Tag(name = "java"),
+        @Tag(name = "microservice"),
+        @Tag(name = "skeleton"),
+        @Tag(name = "sparkjava"),
+        @Tag(name = "guice"),
+        @Tag(name = "swagger"),
+    }
+)
 @Slf4j
 public class ProcessServiceImpl implements ProcessService {
 
@@ -53,8 +59,8 @@ public class ProcessServiceImpl implements ProcessService {
     IndexRoute indexRoute;
     @Inject
     ApiBuilder apiBuilder;
-
-    private final static String API_PACKAGE = "service.process";
+    @Inject @Named("api_package")
+    String API_PACKAGE;
 
     @Override
     public void start() {
@@ -65,9 +71,9 @@ public class ProcessServiceImpl implements ProcessService {
 
         // Routes
         try {
-            s.get("/", indexRoute);
+            //s.get("/", indexRoute);
             apiBuilder.setupRoutes(API_PACKAGE);
-            s.get("/api", (req, res) -> SwaggerParser.getSwaggerJson(API_PACKAGE));
+            //s.get("/api", (req, res) -> SwaggerParser.getSwaggerJson(API_PACKAGE));
         } catch (Exception e) {
             log.error("Cannot build routers - {}", e.getMessage());
         }

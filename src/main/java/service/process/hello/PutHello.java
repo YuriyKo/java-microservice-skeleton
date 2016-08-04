@@ -27,25 +27,27 @@ public class PutHello implements Route {
     @PUT
     @ApiOperation(value = "Update hello message", nickname = "UpdateHello")
     @ApiImplicitParams({
-            @ApiImplicitParam(required = true, dataType = "string", name = "auth", paramType = "header"),
-            @ApiImplicitParam(required = true, dataType = "service.process.hello.Hello", paramType = "body")
+        @ApiImplicitParam(required = true, dataType = "string", name = "auth", paramType = "header"),
+        @ApiImplicitParam(required = true, dataType = "service.process.hello.Hello", paramType = "body")
     })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = ApiResult.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = ApiResult.class),
-            @ApiResponse(code = 401, message = "Unauthorized", response = ApiResult.class)
+        @ApiResponse(code = 200, message = "OK", response = ApiResult.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = ApiResult.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = ApiResult.class)
     })
     @Override
     public Object handle(@ApiParam(hidden = true) Request request,
                          @ApiParam(hidden = true) Response response)
-            throws Exception
+        throws Exception
     {
-        Hello o = null;
+        Hello o;
+
         try {
             String json = request.body();
             o = gson.fromJson(json, Hello.class);
         } catch (JsonSyntaxException e) {
-            halt(400, gson.toJson(ApiResult.of(400, "Invalid input data")));
+            response.status(400);
+            return ApiResult.of(400, "Invalid input data");
         }
 
         datastore.u(o);
