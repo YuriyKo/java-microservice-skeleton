@@ -4,7 +4,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'application'
 
-sourceCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
 mainClassName = 'App'
 
 repositories {
@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.google.inject:guice:4.0'
+    compile 'com.google.inject:guice:4.1.0'
     compile 'net.jmob:guice.conf:1.2.0'
 
     compile 'org.slf4j:slf4j-api:1.7.21'
@@ -21,14 +21,14 @@ dependencies {
 
     compile 'com.sparkjava:spark-core:2.5'
 
-    compile 'org.projectlombok:lombok:1.16.8'
+    compile 'org.projectlombok:lombok:1.16.10'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.google.guava:guava:19.0'
 
-    compile 'io.swagger:swagger-core:1.5.8'
-    compile 'io.swagger:swagger-jaxrs:1.5.8'
+    compile 'io.swagger:swagger-core:1.5.10'
+    compile 'io.swagger:swagger-jaxrs:1.5.10'
     compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
     compile 'org.reflections:reflections:0.9.10'
 
-    testCompile 'junit:junit:4.11'
+    testCompile 'junit:junit:4+'
 }
